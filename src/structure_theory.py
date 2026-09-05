@@ -172,9 +172,6 @@ def solve(size, edges, r):
     p, *_ = np.linalg.lstsq(bal, rhs, rcond=None)
 
     # Stationary distributions here can be extremely skewed, so rounding noise on
-    # the near zero states is judged relative to the largest probability rather
-    # than against an absolute floor.
-    # Stationary distributions here can be extremely skewed, so rounding noise on
     # the near zero states is judged relative to the largest probability. When the
     # direct solve does worse than that, fall back to the stable reduction.
     def acceptable(vec):
