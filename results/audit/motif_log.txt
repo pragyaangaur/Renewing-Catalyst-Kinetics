@@ -1,0 +1,17 @@
+Exact motif sweep completed at 673 K
+Exact motif sweep completed at 745 K
+Exact motif sweep completed at 823 K
+{"motif": "pair", "exact": 0.0, "mean": 0.0, "sem": 0.0, "passed": true, "duration": 20.0}
+{"motif": "path3", "exact": 1.2285722946400062, "mean": 1.377777777777778, "sem": 0.14750068956828674, "passed": true, "duration": 20.0}
+{"motif": "triangle", "exact": 3.6428647083421555, "mean": 3.5416666666666665, "sem": 0.47194213321590295, "passed": true, "duration": 20.0}
+{"motif": "square", "exact": 3.499681476718752, "mean": 3.5749999999999997, "sem": 0.2925365814990521, "passed": true, "duration": 20.0}
+single 0.0
+pair 0.0
+path3 1.2285722946400062
+triangle 3.6428647083421555
+path4 1.8550498354100446
+star4 5.448093691990657
+square 3.499681476718752
+path5 3.9342471116715467
+square_tail 8.648475704353025
+rectangle6 16.530257419539645
