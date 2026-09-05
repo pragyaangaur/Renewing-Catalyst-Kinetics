@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: "Renewal kinetics: exact and Monte Carlo models of SO2 oxidation on a self renewing copper oxide surface"
+message: "If you use this software or its results, please cite it."
+type: software
+abstract: >-
+  Exact master equation and kinetic Monte Carlo models of SO2 oxidation on a
+  copper oxide surface that sulphates in service and recovers by exposing fresh
+  copper. Includes two results that hold for every positive assignment of rate
+  constants: a minimum active patch size of three sites under a dual site
+  adsorption mechanism, and an exact bound on product recovered per copper atom
+  consumed. The reaction barriers are illustrative and the work has not been
+  validated against experiment.
+keywords:
+  - kinetic Monte Carlo
+  - heterogeneous catalysis
+  - catalyst deactivation
+  - sulphation
+  - copper oxide
+  - master equation
+license: MIT
+authors:
+  - family-names: Gaur
+    given-names: Pragyaan

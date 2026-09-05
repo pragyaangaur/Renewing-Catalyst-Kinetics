@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Private working material that is not part of the public record.
+# The outreach folder holds contact lists and draft correspondence.
+outreach/
+
+# Superseded internal reports. These are written around a patent application that
+# has not been filed and they contain unpublished measurements. The public record
+# of this work is README.md and docs/.
+REPORT.md
+FOLLOWUP_RESEARCH.md
+
+# Figures from the superseded first pass. Their titles assert conclusions that
+# docs/CORRECTIONS.md withdraws, so they are kept locally and not published.
+figures/fig1_thermodynamic_boundary.png
+figures/fig2_activity_headroom.png
+figures/fig3_kmc_vs_meanfield.png
+figures/fig4_sulphation_geometry.png
+figures/fig5_lattice_snapshots.png
+figures/fig6_temperature_and_axial.png
+
+# Scan log from the superseded first pass
+results/scan_log.txt
