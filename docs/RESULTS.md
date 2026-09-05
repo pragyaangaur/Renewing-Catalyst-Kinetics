@@ -1,5 +1,7 @@
 # Results
 
+This work originated with SkyCatcher, a project on sulphur recovery from industrial flue gas supported by Mercedes-Benz and Emergent Ventures. What follows is a model study and contains no device design or experimental data from it.
+
 Everything below is a property of the model that is defined in this repository. None of it has been validated against experiment. Read [LIMITATIONS.md](LIMITATIONS.md) before quoting any number.
 
 ## The model
@@ -28,29 +30,23 @@ One practical caution follows from this. When rate constants are extreme, the st
 
 Consider a patch that is periodically discarded and replaced by fresh metallic copper, which then reoxidises. Each reset spends the copper in that layer, including any part of it that had not finished oxidising.
 
-Write `k_d` for product desorption from adsorbed SO3 and `k_s` for sulphation from the same intermediate. Both event rates are proportional to the population of that one intermediate, so
+Write $k_d$ for product desorption from adsorbed SO3 and $k_s$ for sulphation from the same intermediate. Both event rates are proportional to the population of that one intermediate, so
 
-```
-R_product_direct / R_sulphation = k_d / k_s
-```
+$$\frac{R_{\mathrm{product,direct}}}{R_{\mathrm{sulphation}}} \;=\; \frac{k_d}{k_s}$$
 
-At stationary state the sulphate created must equal the sulphate destroyed. With resets at frequency `gamma` on a patch of `n` sites, and a chemical regeneration channel that returns sulphate to oxide without spending copper,
+At stationary state the sulphate created must equal the sulphate destroyed. With resets at frequency $\gamma$ on a patch of $n$ sites, and a chemical regeneration channel that returns sulphate to oxide without spending copper,
 
-```
-R_sulphation = R_regeneration + gamma * n * f_sulphate
-```
+$$R_{\mathrm{sulphation}} \;=\; R_{\mathrm{regeneration}} \;+\; \gamma\, n\, f_{\mathrm{sulphate}}$$
 
-Dividing the total product by the copper spend `gamma * n`, and writing `rho` for the regenerations per copper atom exposed, gives
+Dividing the total product by the copper spend $\gamma n$, and writing $\rho$ for the regenerations per copper atom exposed, gives
 
-```
-Y_Cu = (1 + k_d / k_s) * rho + (k_d / k_s) * f_sulphate
-```
+$$Y_{\mathrm{Cu}} \;=\; \left(1 + \frac{k_d}{k_s}\right)\rho \;+\; \frac{k_d}{k_s}\, f_{\mathrm{sulphate}}$$
 
-With no regeneration channel this reduces to `Y_Cu = (k_d / k_s) * f_sulphate`, which cannot exceed `k_d / k_s` because the sulphated fraction cannot exceed one. That ceiling is independent of patch shape, diffusion, reoxidation speed and reset frequency. No arrangement of the surface and no renewal schedule can overcome a poor branching ratio.
+With no regeneration channel this reduces to $Y_{\mathrm{Cu}} = (k_d/k_s) f_{\mathrm{sulphate}}$, which cannot exceed $k_d/k_s$ because the sulphated fraction cannot exceed one. That ceiling is independent of patch shape, diffusion, reoxidation speed and reset frequency. No arrangement of the surface and no renewal schedule can overcome a poor branching ratio.
 
 With regeneration switched on, the first term has no ceiling and grows as the reset frequency falls. Chemical regeneration is therefore the only route past the renewal limit in this model.
 
-The identity was checked across 200 randomised cases covering four patch shapes, with sulphation and desorption rates drawn over five orders of magnitude and regeneration switched off in a third of them. The maximum relative error was 5.6e-6, which is solver precision. In the cases without regeneration the largest observed value of `Y_Cu` divided by `k_d / k_s` was 0.665, which respects the ceiling. With regeneration the same quantity reached 5.7e6.
+The identity was checked across 200 randomised cases covering four patch shapes, with sulphation and desorption rates drawn over five orders of magnitude and regeneration switched off in a third of them. The maximum relative error was 5.6e-6, which is solver precision. In the cases without regeneration the largest observed value of $Y_{\mathrm{Cu}}$ divided by $k_d/k_s$ was 0.665, which respects the ceiling. With regeneration the same quantity reached 5.7e6.
 
 Numerical agreement here is a conservation check and a demonstration of the derivation. It is not independent evidence of new physics, because the identity follows from the event balances that the solver is already enforcing.
 
@@ -78,7 +74,7 @@ The conclusion is that shape ranking on its own does not identify the oxygen mec
 
 ## Result D: the population of usable patches
 
-At 90 percent random blocking of a square lattice, the fraction of surviving active sites sitting in isolated single sites is `(1-q)^4` and the fraction in isolated pairs is `4q(1-q)^6`, with `q` the surviving fraction of 0.1. Together those account for 86.868 percent of the surviving sites, which by Result A can produce nothing. The remaining 13.132 percent sit in components of at least three sites.
+At 90 percent random blocking of a square lattice, the fraction of surviving active sites sitting in isolated single sites is $(1-q)^4$ and the fraction in isolated pairs is $4q(1-q)^6$, with $q$ the surviving fraction of 0.1. Together those account for 86.868 percent of the surviving sites, which by Result A can produce nothing. The remaining 13.132 percent sit in components of at least three sites.
 
 Direct simulation on a 128 by 128 lattice gives 13.213 percent with a standard error of 0.215. Moving to a six neighbour lattice raises it to 21.253 percent with a standard error of 0.262, so coordination number changes the usable population substantially.
 

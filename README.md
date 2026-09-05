@@ -1,8 +1,14 @@
-# Renewal kinetics
+# Renewing catalyst kinetics
 
 Exact master equation and kinetic Monte Carlo models of SO2 oxidation on a self renewing copper oxide surface.
 
 The motivating question is what happens to a copper oxide catalyst that sulphates in service and recovers by exposing fresh copper underneath. Copper oxide is normally used as a sulphur sorbent rather than as a catalyst, because sulphation converts it to copper sulphate, which is inactive. A surface that renews itself changes the accounting, because sites are no longer a fixed inventory that can only be lost. This repository asks what such a surface can and cannot do, and it tries to separate the answers that depend on assumed rate constants from the answers that do not.
+
+## Where this came from
+
+This work grew out of SkyCatcher, a project by the author on recovering sulphur from industrial flue gas, supported by Mercedes-Benz and by Emergent Ventures. SkyCatcher raised the question that this repository studies, which is whether a copper oxide surface that sulphates in service can still function as a catalyst rather than as a sorbent once it renews itself.
+
+The repository is a separate piece of work. It contains no device design, no experimental data and nothing specific to that project. Everything here is a model, and the results stand or fall on the model alone.
 
 ## What is here
 
@@ -12,17 +18,13 @@ The two results worth reading are stated without any dependence on the numerical
 
 **An exact bound on product per copper atom consumed.** When sulphated sites are recovered only by discarding the oxide layer and exposing fresh copper, the product obtained per copper atom exposed is
 
-```
-Y_Cu = (k_d / k_s) * f_sulphate        which is at most  k_d / k_s
-```
+$$Y_{\mathrm{Cu}} \;=\; \frac{k_d}{k_s}\, f_{\mathrm{sulphate}} \;\leq\; \frac{k_d}{k_s}$$
 
-where `k_d` is product release and `k_s` is sulphation from the same adsorbed intermediate, and `f_sulphate` is the mean sulphated fraction. No patch shape, reset frequency or reoxidation speed can beat that ceiling. Adding a chemical regeneration channel, in which a sulphated site decomposes and returns to service without spending another copper atom, generalises this to
+where $k_d$ is product release and $k_s$ is sulphation from the same adsorbed intermediate, and $f_{\mathrm{sulphate}}$ is the mean sulphated fraction. No patch shape, reset frequency or reoxidation speed can beat that ceiling. Adding a chemical regeneration channel, in which a sulphated site decomposes and returns to service without spending another copper atom, generalises this to
 
-```
-Y_Cu = (1 + k_d / k_s) * rho + (k_d / k_s) * f_sulphate
-```
+$$Y_{\mathrm{Cu}} \;=\; \left(1 + \frac{k_d}{k_s}\right)\rho \;+\; \frac{k_d}{k_s}\, f_{\mathrm{sulphate}}$$
 
-where `rho` is the number of regeneration events per copper atom exposed. The first term has no ceiling, which identifies chemical regeneration as the only route past the renewal limit. Both forms are verified numerically to a relative error of about 6e-6 across 200 randomised cases.
+where $\rho$ is the number of regeneration events per copper atom exposed. The first term has no ceiling, which identifies chemical regeneration as the only route past the renewal limit. Both forms are verified numerically to a relative error of about 6e-6 across 200 randomised cases.
 
 A practical consequence is that a surface can be made to produce faster while using its copper less efficiently. Throughput and material efficiency are not the same objective, and the renewal frequency trades one against the other.
 

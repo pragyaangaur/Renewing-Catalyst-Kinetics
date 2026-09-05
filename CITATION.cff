@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "Renewal kinetics: exact and Monte Carlo models of SO2 oxidation on a self renewing copper oxide surface"
+title: "Renewing catalyst kinetics: exact and Monte Carlo models of SO2 oxidation on a self renewing copper oxide surface"
 message: "If you use this software or its results, please cite it."
 type: software
 abstract: >-
@@ -18,6 +18,10 @@ keywords:
   - copper oxide
   - master equation
 license: MIT
+repository-code: "https://github.com/pragyaangaur/Renewing-Catalyst-Kinetics"
 authors:
   - family-names: Gaur
     given-names: Pragyaan
+references:
+  - type: generic
+    title: "SkyCatcher, the project this work originated from, supported by Mercedes-Benz and Emergent Ventures"
