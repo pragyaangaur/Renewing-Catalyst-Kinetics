@@ -29,3 +29,6 @@ figures/fig6_temperature_and_axial.png
 
 # Scan log from the superseded first pass
 results/scan_log.txt
+
+# Local editor and tooling config
+.claude/
