@@ -26,6 +26,8 @@ $$Y_{\mathrm{Cu}} \;=\; \left(1 + \frac{k_d}{k_s}\right)\rho \;+\; \frac{k_d}{k_
 
 where $\rho$ is the number of regeneration events per copper atom exposed. The first term has no ceiling, which identifies chemical regeneration as the only route past the renewal limit. Both forms are verified numerically to a relative error of about 6e-6 across 200 randomised cases.
 
+On the suggestion of Aditya Bhan, Distinguished McKnight University Professor at the University of Minnesota, this ceiling was checked against the cumulative site-loss selectivity of Foley, Johnson and Bhan, [ACS Catalysis 9 (2019) 7065](https://doi.org/10.1021/acscatal.9b01106). It is the same quantity. Counting a discarded copper atom as a lost site makes $Y_{\mathrm{Cu}}$ the inverse cumulative site-loss selectivity exactly, and counting a sulphation event as a lost site makes the ceiling $k_d/k_s$ the inverse site-loss selectivity of the sulphation channel, with $f_{\mathrm{sulphate}}$ as the ratio between the two. The mean sulphated fraction is then the share of discarded copper that had actually deactivated, so the gap below the ceiling is the cost of throwing away copper that was still in service. The check is in `src/site_loss_check.py` and the algebra is written out in [docs/RESULTS.md](docs/RESULTS.md).
+
 A practical consequence is that a surface can be made to produce faster while using its copper less efficiently. Throughput and material efficiency are not the same objective, and the renewal frequency trades one against the other.
 
 ![The two rate independent results](figures/structure_results.png)
@@ -44,6 +46,7 @@ An earlier and more confident version of this work overstated several conclusion
 | --- | --- |
 | `src/structure_theory.py` | The two rate independent results, with proofs in the docstrings and exhaustive checks. |
 | `src/structure_figures.py` | Draws the figure above from the saved result files. |
+| `src/site_loss_check.py` | Maps Result B onto the cumulative site-loss selectivity of the deactivation literature. |
 | `src/ensemble_audit.py` | Exact master equation solutions on small patches, with independent Gillespie validation. |
 | `src/research_controls.py` | Mechanism controls, uncertainty sweeps and random lattice geometries. |
 | `src/kmc_core.py` | Rejection free lattice KMC engine, n-fold way, constant time event sampling. |
@@ -67,6 +70,12 @@ The two rate independent results take about half a minute together.
 
 ```bash
 python3 src/structure_theory.py
+```
+
+The comparison with cumulative site-loss selectivity takes about ten seconds.
+
+```bash
+python3 src/site_loss_check.py
 ```
 
 The exact patch solves and their stochastic validation take a few minutes.

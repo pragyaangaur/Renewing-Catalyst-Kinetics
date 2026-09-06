@@ -64,6 +64,32 @@ Throughput and material efficiency pull in opposite directions. Resetting the su
 
 The fast end of that table is a mathematical stress test rather than a proposed operating point. At slow reoxidation the picture inverts, because resetting too often leaves mostly bare metal, which is inactive in this scheme. There is therefore an optimum reset rate set by the ratio of reset frequency to reoxidation rate, and a renewal strategy that maximises shedding is not automatically good.
 
+### The relation to cumulative site-loss selectivity
+
+Aditya Bhan, Distinguished McKnight University Professor at the University of Minnesota, pointed out on reading the description of this work that the product obtained per copper atom should be the inverse of the cumulative site-loss selectivity defined by Foley, Johnson and Bhan, [ACS Catalysis 9 (2019) 7065](https://doi.org/10.1021/acscatal.9b01106), and asked for the algebra to be checked. That paper treats active sites as a consumable reactant and defines the cumulative site-loss selectivity as total moles of sites lost divided by total moles of reactant converted to effluent product, so its inverse is the product obtained per site lost. The check was run in `src/site_loss_check.py` over the same 200 randomised cases used above, and the suggestion holds.
+
+The comparison only becomes definite once "a site lost" is tied to an event in this model, and there are two candidates. A reset discards the whole copper layer, including copper that had never sulphated, so the number of copper atoms discarded and the number of sulphation events are different quantities.
+
+$$S_{\mathrm{Cu}} \;=\; \frac{\text{copper atoms discarded}}{\text{product molecules}} \qquad\qquad S_{\mathrm{sulf}} \;=\; \frac{\text{sulphation events}}{\text{product molecules}}$$
+
+Reading the discarded copper atom as the lost site gives the correspondence exactly, to a maximum relative error of 2.2e-16 across the ensemble.
+
+$$Y_{\mathrm{Cu}} \;=\; \frac{1}{S_{\mathrm{Cu}}}$$
+
+That identity is definitional once the mapping is fixed, so it confirms the accounting rather than proving anything new. The second reading is the more informative one. Taking the sulphation event as the lost site, the identity of Result B rearranges to
+
+$$Y_{\mathrm{Cu}} \;=\; \frac{\rho + f_{\mathrm{sulphate}}}{S_{\mathrm{sulf}}}$$
+
+which holds to a maximum relative error of 5.6e-6, the same solver precision as the identity itself. With renewal only, $\rho$ is zero and the inverse sulphation site-loss selectivity is the ceiling of Result B exactly, $1/S_{\mathrm{sulf}} = k_d/k_s$, verified to 4.0e-16. The gap between the copper efficiency and its ceiling is then exactly $f_{\mathrm{sulphate}}$, which ran from 6.1e-4 to 0.665 over the ensemble.
+
+This gives the ceiling a cleaner reading than the one first written down here. The branching ratio $k_d/k_s$ is the inverse site-loss selectivity of the sulphation channel, so it is the product obtained per site actually deactivated. The mean sulphated fraction is the share of the discarded copper that had in fact deactivated. The distance from the ceiling is therefore a materials accounting cost. It measures the copper that was thrown away while it was still in service.
+
+The 2019 paper also gives a variant of the denominator that counts all reactant consumed rather than only reactant converted to effluent product. Here the extra term is the sulphur that leaves with the discarded layer, and the check confirms
+
+$$\frac{1}{S_{\mathrm{consumed}}} \;=\; Y_{\mathrm{Cu}} \;+\; f_{\mathrm{sulphate}}$$
+
+to a maximum relative error of 2.3e-16. Fifty of the 200 drawn cases are two-site patches, where no product forms at all by Result A and every one of these ratios is undefined. Those cases are reported separately and excluded from the error figures above.
+
 ## Result C: patch shape matters, and its ranking is not robust
 
 At equal site count and equal bond count, different patch shapes give different rates. A four site star and a four site chain both have four sites and three bonds, and under one illustrative barrier set their rates differ by a factor of 2.94.
