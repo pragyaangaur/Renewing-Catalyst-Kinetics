@@ -22,9 +22,11 @@ The reason is an accessibility argument rather than a rate argument. A single si
 
 Every connected graph on three or more vertices contains such a path, because a connected graph in which no vertex has two or more neighbours is at most a single edge. The criterion is therefore the number of sites in the connected component and not its shape.
 
-This is checked in two independent ways in `src/structure_theory.py`. The reachability test uses integer logic only and treats every rate as merely possible, so its answer depends on the patch shape alone. The numerical test solves the stationary master equation for randomised rate constants spanning nine orders of magnitude. Across 248 cases covering every connected graph up to five sites, there were no violations, and every patch predicted to be dead produced exactly zero.
+The positive rate for three or more sites also needs the productive configuration to recur. It does, because the empty patch can be reached from every configuration. SO2 and SO3 can always leave, two neighbouring O atoms can leave together, and an O atom with no O neighbour can be removed by emptying a neighbour, filling it with SO2 and letting the reaction fire. The reachable set is then one communicating class, so every configuration in it has positive stationary probability.
 
-One practical caution follows from this. When rate constants are extreme, the stationary rate on a live patch can fall to solver precision, and in a finite stochastic run it can produce no events at all. Neither of those is evidence that the true rate is zero. An earlier version of this work made that mistake, and it is recorded in [CORRECTIONS.md](CORRECTIONS.md).
+This is checked in two independent ways in `src/structure_theory.py`. The reachability test uses integer logic only and treats every rate as merely possible, so its answer depends on the patch shape alone. It checks both that a productive configuration is reachable and that the reachable set is a single communicating class, with and without adsorbate hops, on all 996 connected graphs with one to seven sites, taken from the Atlas of Graphs. The largest state space has 16,376 configurations. The numerical test solves the stationary master equation for randomised rate constants spanning nine orders of magnitude, on every connected graph up to five sites. All 16 dead cases gave exactly zero, and all 232 live cases gave a strictly positive rate, from 2.3e-21 to 485 per site per second, with relative residuals below 4.1e-17.
+
+One practical caution follows from this. When rate constants are extreme, the stationary rate on a live patch can be tiny, and in a finite stochastic run it can produce no events at all. A general purpose linear solver can also return a tiny rate with a large relative error. None of those is evidence that the true rate is zero. The stationary solver is now the GTH reduction, which is accurate entry by entry, and it matched 60 digit arithmetic to 1.3e-15 in the test suite. Earlier versions of this work made both mistakes, and they are recorded in [CORRECTIONS.md](CORRECTIONS.md).
 
 ## Result B: an exact ceiling on product per copper atom consumed
 
@@ -46,7 +48,7 @@ With no regeneration channel this reduces to $Y_{\mathrm{Cu}} = (k_d/k_s) f_{\ma
 
 With regeneration switched on, the first term has no ceiling and grows as the reset frequency falls. Chemical regeneration is therefore the only route past the renewal limit in this model.
 
-The identity was checked across 200 randomised cases covering four patch shapes, with sulphation and desorption rates drawn over five orders of magnitude and regeneration switched off in a third of them. The maximum relative error was 5.6e-6, which is solver precision. In the cases without regeneration the largest observed value of $Y_{\mathrm{Cu}}$ divided by $k_d/k_s$ was 0.665, which respects the ceiling. With regeneration the same quantity reached 5.7e6.
+The identity was checked across 200 randomised cases covering four patch shapes, with sulphation and desorption rates drawn over five orders of magnitude and regeneration switched off in a third of them. The maximum relative error was 1.4e-15, which is machine precision. An earlier version reported 5.6e-6, which was the error of a less accurate solver. In the cases without regeneration the largest observed value of $Y_{\mathrm{Cu}}$ divided by $k_d/k_s$ was 0.665, which respects the ceiling. With regeneration the same quantity reached 5.7e6.
 
 Numerical agreement here is a conservation check and a demonstration of the derivation. It is not independent evidence of new physics, because the identity follows from the event balances that the solver is already enforcing.
 
@@ -80,7 +82,7 @@ That identity is definitional once the mapping is fixed, so it confirms the acco
 
 $$Y_{\mathrm{Cu}} \;=\; \frac{\rho + f_{\mathrm{sulphate}}}{S_{\mathrm{sulf}}}$$
 
-which holds to a maximum relative error of 5.6e-6, the same solver precision as the identity itself. With renewal only, $\rho$ is zero and the inverse sulphation site-loss selectivity is the ceiling of Result B exactly, $1/S_{\mathrm{sulf}} = k_d/k_s$, verified to 4.0e-16. The gap between the copper efficiency and its ceiling is then exactly $f_{\mathrm{sulphate}}$, which ran from 6.1e-4 to 0.665 over the ensemble.
+which holds to a maximum relative error of 1.4e-15, the same precision as the identity itself. With renewal only, $\rho$ is zero and the inverse sulphation site-loss selectivity is the ceiling of Result B exactly, $1/S_{\mathrm{sulf}} = k_d/k_s$, verified to 4.2e-16. The gap between the copper efficiency and its ceiling is then exactly $f_{\mathrm{sulphate}}$, which ran from 6.1e-4 to 0.665 over the ensemble.
 
 This gives the ceiling a cleaner reading than the one first written down here. The branching ratio $k_d/k_s$ is the inverse site-loss selectivity of the sulphation channel, so it is the product obtained per site actually deactivated. The mean sulphated fraction is the share of the discarded copper that had in fact deactivated. The distance from the ceiling is therefore a materials accounting cost. It measures the copper that was thrown away while it was still in service.
 
@@ -88,7 +90,7 @@ The 2019 paper also gives a variant of the denominator that counts all reactant 
 
 $$\frac{1}{S_{\mathrm{consumed}}} \;=\; Y_{\mathrm{Cu}} \;+\; f_{\mathrm{sulphate}}$$
 
-to a maximum relative error of 2.3e-16. Fifty of the 200 drawn cases are two-site patches, where no product forms at all by Result A and every one of these ratios is undefined. Those cases are reported separately and excluded from the error figures above.
+to a maximum relative error of 2.9e-16. Fifty of the 200 drawn cases are two-site patches, where no product forms at all by Result A and every one of these ratios is undefined. Those cases are reported separately and excluded from the error figures above.
 
 ## Result C: patch shape matters, and its ranking is not robust
 
@@ -105,3 +107,29 @@ At 90 percent random blocking of a square lattice, the fraction of surviving act
 Direct simulation on a 128 by 128 lattice gives 13.213 percent with a standard error of 0.215. Moving to a six neighbour lattice raises it to 21.253 percent with a standard error of 0.262, so coordination number changes the usable population substantially.
 
 A finite productive patch does not need a surface spanning cluster, so describing this as a percolation threshold would be misleading. What matters is the size distribution of small components and not the existence of an infinite one.
+
+### The general law
+
+The same count works on any lattice. With coordination number $z$ and a fraction $p$ of sites active, the share of surviving sites that can never turn over is
+
+$$D(p) \;=\; (1-p)^z \;+\; z\,p\,(1-p)^{t_2}$$
+
+where $t_2 = 2z - 2 - c$ is the perimeter of a nearest neighbour pair and $c$ is the number of neighbours the two sites share. That gives $t_2$ = 4 on the honeycomb lattice, 6 on the square lattice and 8 on the triangular lattice, and at 90 percent deactivation $D$ = 0.9258, 0.8687 and 0.7897. The six neighbour sampling above, 21.253 percent usable, agrees with the exact 21.03 percent. Under the lattice oxygen control only isolated sites are dead and $D(p) = (1-p)^z$. The law holds for every positive rate assignment because it combines Result A with pure combinatorics.
+
+`src/cluster_expansion.py` checks it three ways. The lattice animal counts to eight sites match OEIS A001420, A001168 and A001207. The cluster numbers reproduce $p$ exactly through order $p^8$ on all three lattices. Direct sampling of eight 512 by 512 lattices at each of 49 values of $p$ agrees with the closed form to within 3.0, 2.2 and 2.0 standard errors on the honeycomb, square and triangular lattices, and a larger rerun at the worst honeycomb points gave below 1.6.
+
+## Result E: the exact rate of a randomly deactivated surface
+
+Deactivated sites take part in no process, so each component of the surviving sites evolves independently and the lattice rate is a sum over component shapes,
+
+$$\mathrm{TOF}(p) \;=\; \sum_A w_A\, p^{|A|} (1-p)^{t(A)}\, R(A)$$
+
+with $R(A)$ the exact stationary rate of an isolated component shaped like $A$, $t(A)$ its perimeter and $w_A$ one over the sites per unit cell. This is the classical cluster number expansion of site percolation with exact master equation rates as the weights. On the square lattice the 304 animals of three to six sites fall into 18 graph isomorphism classes, each solved once. Every term is non-negative, so a truncated sum is a rigorous lower bound, and the share of active sites it leaves out is known exactly.
+
+With the illustrative 745 K rates of the first pass geometry study and 90 percent random deactivation, the bound is 0.0283 per site per second. The omitted components hold 0.23 percent of the active sites. The first pass reported zero for a surface of exactly this kind. `src/firstpass_postmortem.py` rebuilds that lattice from its seed. Every component in it has five sites or fewer, so it can be solved exactly, and its stationary rate is 0.0300 per site per second. The first pass measured a window of 0.026 seconds that began 0.0127 seconds after an empty start. The transient master equation gives 3.57 expected product events in that window, so a run that saw none had a probability of 0.028. The same engine run for four seconds of simulated time on the same lattice gives 0.0229 plus or minus 0.0048, which is 1.5 standard errors from the exact value.
+
+At 85 percent sulphation the first pass reported 0.157, while the exact stationary rate of that lattice is 0.0751 and a long run gives 0.083 plus or minus 0.016. The first pass value was 2.1 times too high because its window still lay inside the transient that follows the empty start. The exact expectation for that window is 10.9 events, against 5.8 at steady state, and the first pass observed 12. Both first pass numbers were faithful samples of what the engine was simulating. Neither was a measurement of the stationary rate. The numbers are in `results/firstpass_postmortem.json`.
+
+## Result F: the lattice KMC engine against exact answers on whole lattices
+
+The factorisation also gives an exact target for the lattice engine on a full 64 by 64 lattice. `src/lattice_validation.py` builds 24 frozen random lattices at $p$ = 0.1, 0.2 and 0.3, deactivates components larger than six sites so that every component is exactly solvable, and compares the engine with the exact component sum at synthetic rates of order one. All 24 runs passed the acceptance test fixed in advance, five standard errors plus one percent. The pooled chi-square was 21.7 on 24 degrees of freedom, p = 0.60, the largest |z| was 2.14 and the largest relative deviation 0.63 percent.

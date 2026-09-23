@@ -22,7 +22,11 @@ The exhaustive graph enumeration runs to five sites by default and six as an opt
 
 ## Numerical caveats
 
-Rate constants spanning nine orders of magnitude make the stationary balance matrix badly conditioned. The solver tries a dense least squares solve and falls back to the Grassmann, Taksar and Heyman reduction, which cannot produce a negative probability through cancellation. Every solve is checked for one closed communicating class, a nonnegative distribution, a small relative residual and closed element balances. Even so, stationary rates on live patches can fall to solver precision under extreme draws, and the reachability test rather than the numerical rate is what establishes Result A.
+Rate constants spanning nine orders of magnitude make the stationary balance matrix badly conditioned. The exact solver in `src/structure_theory.py` therefore uses the Grassmann, Taksar and Heyman reduction on the closed communicating class, which never subtracts and is accurate entry by entry. It matched 60 digit arithmetic to about 1e-15 in the tests. The older solver in `src/ensemble_audit.py` uses a sparse direct solve. It is used only with the illustrative rates, where the test suite shows it agrees with the GTH solver to better than 1e-9. Every solve is checked for one closed communicating class, a nonnegative distribution and a small relative residual, and the ensemble audit also checks closed element balances.
+
+Dense GTH costs the cube of the number of states, so the exact solves stop at six sites without renewal, about four thousand states. The rate expansion of `src/cluster_expansion.py` is therefore truncated at components of six sites. The truncated sum is a lower bound, and the share of active sites it omits is reported with it. It is small at low coverage and grows quickly above about 20 percent active sites.
+
+The whole lattice check of the KMC engine uses synthetic rates of order one. The illustrative rates are too stiff for a pure Python engine to sample small rates on a whole lattice in reasonable time, which is how the first pass came to report a zero rate. The long runs in `src/firstpass_postmortem.py` do use the illustrative rates, on two lattices only.
 
 ## No experimental validation
 
