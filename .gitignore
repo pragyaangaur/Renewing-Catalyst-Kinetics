@@ -32,3 +32,10 @@ results/scan_log.txt
 
 # Local editor and tooling config
 .claude/
+
+# The paper is published on ChemRxiv and archived on Zenodo, and is not kept here.
+paper/
+
+# Pytest and packaging scratch
+.pytest_cache/
+dist/

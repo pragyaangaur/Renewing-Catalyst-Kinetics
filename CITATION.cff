@@ -1,27 +1,49 @@
 cff-version: 1.2.0
 title: "Renewing catalyst kinetics: exact and Monte Carlo models of SO2 oxidation on a self renewing copper oxide surface"
-message: "If you use this software or its results, please cite it."
+message: "If you use this software or its results, please cite it using the metadata below."
 type: software
+version: 1.0.0
+date-released: "2026-09-23"
+doi: 10.5281/zenodo.22910821
 abstract: >-
   Exact master equation and kinetic Monte Carlo models of SO2 oxidation on a
   copper oxide surface that sulphates in service and recovers by exposing fresh
-  copper. Includes two results that hold for every positive assignment of rate
-  constants: a minimum active patch size of three sites under a dual site
-  adsorption mechanism, and an exact bound on product recovered per copper atom
+  copper. It contains three results that hold for every positive assignment of
+  rate constants. The first is a minimum active patch size of three sites under a
+  dual site adsorption mechanism, checked on all 996 connected graphs of up to
+  seven sites. The second is a closed form for the share of a randomly deactivated
+  lattice that can never turn over, with an exact rate expansion built from small
+  components. The third is an exact bound on product recovered per copper atom
   consumed. The reaction barriers are illustrative and the work has not been
   validated against experiment.
 keywords:
   - kinetic Monte Carlo
+  - master equation
   - heterogeneous catalysis
   - catalyst deactivation
   - sulphation
   - copper oxide
-  - master equation
+  - site percolation
+  - lattice animals
 license: MIT
 repository-code: "https://github.com/pragyaangaur/Renewing-Catalyst-Kinetics"
 authors:
   - family-names: Gaur
     given-names: Pragyaan
+    email: pragyaangaur12@gmail.com
 references:
-  - type: generic
-    title: "SkyCatcher, the project this work originated from, supported by Mercedes-Benz and Emergent Ventures"
+  - type: article
+    title: "A method for assessing catalyst deactivation: a case study on methanol-to-hydrocarbons conversion"
+    authors:
+      - family-names: Foley
+        given-names: Brandon L.
+      - family-names: Johnson
+        given-names: Blake A.
+      - family-names: Bhan
+        given-names: Aditya
+    journal: ACS Catalysis
+    volume: 9
+    start: 7065
+    end: 7072
+    year: 2019
+    doi: 10.1021/acscatal.9b01106

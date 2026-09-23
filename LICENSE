@@ -1,11 +1,13 @@
 Two licences apply to this repository.
 
-The source code in src/ is available under the MIT Licence.
-The documentation in README.md and docs/, together with the figures in figures/,
-is available under the Creative Commons Attribution 4.0 International Licence.
+The source code in src/ and tests/, together with run_all.py, is available under
+the MIT Licence.
+The documentation in README.md and docs/, the figures in figures/ and
+paper/figures/, the saved data in results/, and the paper in paper/ are available
+under the Creative Commons Attribution 4.0 International Licence.
 
 ================================================================================
-MIT Licence (applies to src/)
+MIT Licence (applies to src/, tests/ and run_all.py)
 
 Copyright (c) 2026 Pragyaan Gaur
 
@@ -28,7 +30,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ================================================================================
-CC BY 4.0 (applies to README.md, docs/ and figures/)
+CC BY 4.0 (applies to README.md, docs/, figures/, results/ and paper/)
 
 Copyright (c) 2026 Pragyaan Gaur
 

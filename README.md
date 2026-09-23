@@ -14,7 +14,7 @@ The repository is a separate piece of work. It contains no device design, no exp
 
 The two results worth reading are stated without any dependence on the numerical rate constants. They hold for every strictly positive assignment of rates, so the fact that the barriers in this repository are illustrative does not weaken them.
 
-**A minimum patch size of three sites.** In the adsorbate mechanism modelled here, oxygen arrives as O2 and occupies two neighbouring vacant sites at once, while SO2 adsorbs on a single vacant site, and the two must meet on neighbouring sites to react. On an isolated pair of active sites the oxygen step fills both sites, so SO2 can never adsorb alongside it, and the stationary product rate is exactly zero. Three connected sites are enough to make the rate positive. Every connected graph on three or more sites contains the required path, so the criterion is the patch size and not the shape. This is proved in `src/structure_theory.py` and checked by exhaustive enumeration of every connected graph up to five sites, with six available as an option.
+**A minimum patch size of three sites.** In the adsorbate mechanism modelled here, oxygen arrives as O2 and occupies two neighbouring vacant sites at once, while SO2 adsorbs on a single vacant site, and the two must meet on neighbouring sites to react. On an isolated pair of active sites the oxygen step fills both sites, so SO2 can never adsorb alongside it, and the stationary product rate is exactly zero. Three connected sites are enough to make the rate positive. Every connected graph on three or more sites contains the required path, so the criterion is the patch size and not the shape. This is proved in `src/structure_theory.py` and checked by exhaustive enumeration of all 996 connected graphs with up to seven sites, with and without adsorbate hops.
 
 **An exact bound on product per copper atom consumed.** When sulphated sites are recovered only by discarding the oxide layer and exposing fresh copper, the product obtained per copper atom exposed is
 
@@ -24,11 +24,17 @@ where $k_d$ is product release and $k_s$ is sulphation from the same adsorbed in
 
 $$Y_{\mathrm{Cu}} \;=\; \left(1 + \frac{k_d}{k_s}\right)\rho \;+\; \frac{k_d}{k_s}\, f_{\mathrm{sulphate}}$$
 
-where $\rho$ is the number of regeneration events per copper atom exposed. The first term has no ceiling, which identifies chemical regeneration as the only route past the renewal limit. Both forms are verified numerically to a relative error of about 6e-6 across 200 randomised cases.
+where $\rho$ is the number of regeneration events per copper atom exposed. The first term has no ceiling, which identifies chemical regeneration as the only route past the renewal limit. Both forms are verified numerically to a relative error of 1.4e-15 across 200 randomised cases.
 
 On the suggestion of Aditya Bhan, Distinguished McKnight University Professor at the University of Minnesota, this ceiling was checked against the cumulative site-loss selectivity of Foley, Johnson and Bhan, [ACS Catalysis 9 (2019) 7065](https://doi.org/10.1021/acscatal.9b01106). It is the same quantity. Counting a discarded copper atom as a lost site makes $Y_{\mathrm{Cu}}$ the inverse cumulative site-loss selectivity exactly, and counting a sulphation event as a lost site makes the ceiling $k_d/k_s$ the inverse site-loss selectivity of the sulphation channel, with $f_{\mathrm{sulphate}}$ as the ratio between the two. The mean sulphated fraction is then the share of discarded copper that had actually deactivated, so the gap below the ceiling is the cost of throwing away copper that was still in service. The check is in `src/site_loss_check.py` and the algebra is written out in [docs/RESULTS.md](docs/RESULTS.md).
 
-A practical consequence is that a surface can be made to produce faster while using its copper less efficiently. Throughput and material efficiency are not the same objective, and the renewal frequency trades one against the other.
+**How much of a poisoned surface is dead.** Combining the first result with the cluster statistics of site percolation gives, for a lattice of coordination number $z$ with a fraction $p$ of sites still active, the share of surviving sites that can never turn over,
+
+$$D(p) \;=\; (1-p)^z \;+\; z\,p\,(1-p)^{t_2}$$
+
+where $t_2$ is the perimeter of a neighbouring pair, 4, 6 and 8 on the honeycomb, square and triangular lattices. At 90 percent random deactivation of a square lattice, 86.9 percent of the surviving sites are dead for every rate assignment. The same expansion, with exact rates for each small component shape, gives the rate of a randomly deactivated surface without any sampling, and it shows that a first pass Monte Carlo run which reported a dead surface was wrong. This is in `src/cluster_expansion.py` and `src/firstpass_postmortem.py`.
+
+A practical consequence of the copper bound is that a surface can be made to produce faster while using its copper less efficiently. Throughput and material efficiency are not the same objective, and the renewal frequency trades one against the other.
 
 ![The two rate independent results](figures/structure_results.png)
 
@@ -44,7 +50,13 @@ An earlier and more confident version of this work overstated several conclusion
 
 | Path | What it is |
 | --- | --- |
+| `run_all.py` | Regenerates every result and figure and writes `results/MANIFEST.json` with checksums. |
 | `src/structure_theory.py` | The two rate independent results, with proofs in the docstrings and exhaustive checks. |
+| `src/cluster_expansion.py` | Lattice animals, the dead fraction law on three lattices and the exact rate expansion. |
+| `src/lattice_validation.py` | The lattice KMC engine against exact component sums on 24 whole lattices. |
+| `src/firstpass_postmortem.py` | The first pass zero rate, rebuilt from its seed and explained exactly. |
+| `src/paper_figures.py`, `src/paper_numbers.py` | Figures and quoted numbers for the paper, from saved results only. |
+| `tests/` | The test suite. |
 | `src/structure_figures.py` | Draws the figure above from the saved result files. |
 | `src/site_loss_check.py` | Maps Result B onto the cumulative site-loss selectivity of the deactivation literature. |
 | `src/ensemble_audit.py` | Exact master equation solutions on small patches, with independent Gillespie validation. |
@@ -60,13 +72,25 @@ An earlier and more confident version of this work overstated several conclusion
 
 ## Running it
 
-Python 3.10 or newer with numpy, scipy and matplotlib.
+Python 3.10 or newer with numpy, scipy, matplotlib, networkx and mpmath, plus pytest for the tests. The archived results were produced with Python 3.13, numpy 2.5, scipy 1.18, matplotlib 3.11 and networkx 3.6.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-The two rate independent results take about half a minute together.
+Everything, in dependency order, with a checksum manifest at the end. This takes about an hour on a laptop, most of it in the long KMC runs.
+
+```bash
+python3 run_all.py
+```
+
+The test suite takes under a minute. It checks the solver against 60 digit arithmetic, the enumerations against OEIS and every number quoted in the paper against the saved results.
+
+```bash
+python3 -m pytest tests
+```
+
+The two rate independent results take about eight minutes together, most of it in the seven site reachability check.
 
 ```bash
 python3 src/structure_theory.py
@@ -89,6 +113,10 @@ The lattice KMC scripts are pure Python and take roughly six to eight minutes ea
 ```bash
 python3 src/kmc_geometry.py
 ```
+
+## Citing
+
+The archived release is on Zenodo at https://doi.org/10.5281/zenodo.22910821. The paper that describes the results in full is included in that archive and is also published as a preprint on ChemRxiv. `CITATION.cff` carries the same metadata in machine readable form.
 
 ## Contributing and contact
 

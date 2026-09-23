@@ -1,0 +1,39 @@
+{
+  "title": "Renewing catalyst kinetics: code, data and figures for rate-independent limits on a sulphating, self-renewing oxide catalyst",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "publication_date": "2026-09-23",
+  "description": "<p>This archive contains the code, data, figures and paper for a model study of how a copper oxide catalyst behaves when it is slowly poisoned and renews itself.</p><p>Copper oxide can convert sulphur dioxide (SO2) from industrial flue gas into sulphur trioxide, the precursor of sulphuric acid. The same reaction also turns the copper oxide into copper sulphate, which is inactive, so copper oxide is normally used as a sorbent that fills up and stops working. This study asks whether a copper surface that keeps shedding its poisoned layer and exposing fresh copper can keep working as a catalyst.</p><p>The speeds of the individual surface reactions on this material have never been measured. The main results are therefore restricted to statements that are true whatever those speeds are. There are three.</p><p>1. A patch of active surface needs at least three connected sites to produce anything. Patches of one or two sites produce exactly zero, and every connected patch of three or more sites produces something. This is proved and checked on all 996 possible patch shapes of up to seven sites.</p><p>2. When a surface is poisoned at random, there is an exact formula for the fraction of the surviving sites that can never work again. On a square lattice with 90 percent of sites poisoned, 86.9 percent of the survivors are dead. The same method gives the exact output of a randomly poisoned surface without simulation. It shows that a simulation in an earlier version of this work, which reported a completely dead surface, was wrong.</p><p>3. If poisoned sites can only be recovered by discarding the surface layer, the product obtained per copper atom used up has a fixed ceiling. The ceiling is set by how often the product escapes before it poisons its own site, and no surface design or renewal schedule can exceed it. Only a chemical route that cleans poisoned sites without losing copper can get past it.</p><p>Every number is checked against an independent exact calculation, and the simulation engine is tested against exact answers on 24 full-size lattices. One command, python3 run_all.py, regenerates every result and figure. The test suite runs with python3 -m pytest tests. The file docs/CORRECTIONS.md records the claims from an earlier version that did not survive checking, and explains why.</p><p>The reaction rates used for illustration are assumed values, and nothing here has been tested against experiment. The code is released under the MIT licence. The documentation, data, figures and paper are released under CC BY 4.0.</p>",
+  "creators": [
+    {
+      "name": "Gaur, Pragyaan"
+    }
+  ],
+  "keywords": [
+    "kinetic Monte Carlo",
+    "master equation",
+    "heterogeneous catalysis",
+    "catalyst deactivation",
+    "sulphation",
+    "copper oxide",
+    "SO2 oxidation",
+    "site percolation",
+    "lattice animals",
+    "reproducible research"
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/pragyaangaur/Renewing-Catalyst-Kinetics",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "10.1021/acscatal.9b01106",
+      "relation": "references",
+      "resource_type": "publication-article"
+    }
+  ]
+}
