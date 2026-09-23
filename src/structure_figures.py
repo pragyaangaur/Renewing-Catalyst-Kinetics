@@ -38,22 +38,22 @@ def panel_a(ax):
         live = n >= 3
         colour = LIVE if live else DEAD
         # exact zeros cannot be drawn on a log axis, so they sit on a floor line
-        floor = 1e-14
+        floor = 1e-25
         y = [max(v, floor) for v in vals]
         x = np.full(len(y), n) + np.random.default_rng(n).uniform(-0.13, 0.13, len(y))
         ax.scatter(x, y, s=16, color=colour, alpha=0.75, lw=0,
                    label=("productive" if live else "exactly zero") if n in (1, 3) else None)
 
-    ax.axhline(1e-14, color=DEAD, lw=1.0, ls="--")
+    ax.axhline(1e-25, color=DEAD, lw=1.0, ls="--")
     ax.axvspan(0.5, 2.5, color=DEAD, alpha=0.09, lw=0)
     ax.set_yscale("log")
-    ax.set_ylim(3e-15, 1e4)
+    ax.set_ylim(3e-26, 1e4)
     ax.set_xticks(sizes)
     ax.set_xlabel("sites in the connected patch")
     ax.set_ylabel("stationary product rate per site (s$^{-1}$)")
     ax.set_title("Result A: one and two site patches are exactly dead\n"
                  "for every rate assignment", fontsize=10)
-    ax.text(1.5, 3e-13, "no reachable state\nholds O and SO$_2$ together",
+    ax.text(1.5, 3e-24, "no reachable state\nholds O and SO$_2$ together",
             ha="center", fontsize=7.5, color=DEAD)
     ax.legend(fontsize=8, loc="lower right")
 
@@ -79,7 +79,7 @@ def panel_b(ax):
     ax.set_xlabel("predicted $Y_{Cu}$ from the identity")
     ax.set_ylabel("measured $Y_{Cu}$ from the stationary solve")
     ax.set_title("Result B: the copper efficiency identity holds\n"
-                 "to 6e-6 relative over 200 randomised cases", fontsize=10)
+                 "to 1.4e-15 relative over 200 randomised cases", fontsize=10)
     ax.legend(fontsize=8, loc="upper left")
 
 
