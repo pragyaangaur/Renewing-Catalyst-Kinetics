@@ -1,0 +1,316 @@
+[
+ {
+  "coverage": 0.85,
+  "active_sites": 614,
+  "largest_component": 6,
+  "burn_in_end": 0.00894573299845229,
+  "window": 0.01869641949127389,
+  "observed_events": 12,
+  "first_pass_tof": 0.15669778383863084,
+  "exact_stationary_tof": 0.07509922546591447,
+  "expected_events_stationary": 5.7511388069089096,
+  "expected_events_transient": 10.87893901895571,
+  "poisson_p_zero_transient": 1.88511051158026e-05,
+  "long_run": {
+   "burn": 1.0,
+   "measure": 4.0,
+   "tof": 0.08325195332683419,
+   "sem": 0.01637256584349353,
+   "events": 124827192,
+   "z": 0.4979505313249128
+  },
+  "shapes": [
+   {
+    "size": 1,
+    "edges": [],
+    "count": 341,
+    "stationary_rate": 1.3877787807814457e-17,
+    "expected_in_window": 8.33003964065401e-20,
+    "states": 3
+   },
+   {
+    "size": 2,
+    "edges": [
+     [
+      0,
+      1
+     ]
+    ],
+    "count": 73,
+    "stationary_rate": 1.5484821066992678e-21,
+    "expected_in_window": -3.0454127666605824e-20,
+    "states": 10
+   },
+   {
+    "size": 3,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "count": 31,
+    "stationary_rate": 3.68571753771519,
+    "expected_in_window": 0.07099868914320062,
+    "states": 52
+   },
+   {
+    "size": 4,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "count": 1,
+    "stationary_rate": 7.420200791282663,
+    "expected_in_window": 0.1395452403371955,
+    "states": 238
+   },
+   {
+    "size": 6,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      4,
+      5
+     ]
+    ],
+    "count": 1,
+    "stationary_rate": 61.880487280285465,
+    "expected_in_window": 4.4797117974589185,
+    "states": 4006
+   },
+   {
+    "size": 5,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "count": 3,
+    "stationary_rate": 19.67124109966914,
+    "expected_in_window": 0.43116818884399777,
+    "states": 988
+   },
+   {
+    "size": 4,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "count": 1,
+    "stationary_rate": 21.79238090218588,
+    "expected_in_window": 1.6051937837174677,
+    "states": 226
+   },
+   {
+    "size": 5,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "count": 1,
+    "stationary_rate": 43.24239156645331,
+    "expected_in_window": 1.1600242674709165,
+    "states": 988
+   }
+  ]
+ },
+ {
+  "coverage": 0.9,
+  "active_sites": 410,
+  "largest_component": 5,
+  "burn_in_end": 0.012711871194330697,
+  "window": 0.026009266017242315,
+  "observed_events": 0,
+  "first_pass_tof": 0.0,
+  "exact_stationary_tof": 0.030006796680714855,
+  "expected_events_stationary": 3.196742685466691,
+  "expected_events_transient": 3.5650706837001263,
+  "poisson_p_zero_transient": 0.028294985419237237,
+  "long_run": {
+   "burn": 1.0,
+   "measure": 4.0,
+   "tof": 0.022949218839166875,
+   "sem": 0.00484540564680798,
+   "events": 89685712,
+   "z": -1.4565504636742472
+  },
+  "shapes": [
+   {
+    "size": 1,
+    "edges": [],
+    "count": 245,
+    "stationary_rate": 1.3877787807814457e-17,
+    "expected_in_window": 6.883730883217292e-19,
+    "states": 3
+   },
+   {
+    "size": 2,
+    "edges": [
+     [
+      0,
+      1
+     ]
+    ],
+    "count": 51,
+    "stationary_rate": 1.5484821066992678e-21,
+    "expected_in_window": -1.479603811067743e-20,
+    "states": 10
+   },
+   {
+    "size": 3,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "count": 14,
+    "stationary_rate": 3.68571753771519,
+    "expected_in_window": 0.09592824787014376,
+    "states": 52
+   },
+   {
+    "size": 5,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "count": 1,
+    "stationary_rate": 27.254810400161517,
+    "expected_in_window": 0.7701604782440015,
+    "states": 988
+   },
+   {
+    "size": 4,
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "count": 3,
+    "stationary_rate": 7.42020079128266,
+    "expected_in_window": 0.19300976482813326,
+    "states": 238
+   },
+   {
+    "size": 4,
+    "edges": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "count": 1,
+    "stationary_rate": 21.792380902185894,
+    "expected_in_window": 0.8728854407897124,
+    "states": 226
+   }
+  ]
+ }
+]
