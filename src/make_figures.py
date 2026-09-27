@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
 
 import thermo
-from reactor import required_tof
 from kmc_geometry import make_random, make_islands, pair_stats
 
 HERE = os.path.dirname(__file__)
@@ -139,7 +138,7 @@ def fig3_kmc_vs_mf():
                  fontsize=10)
     ax.legend(fontsize=8, loc="lower left")
 
-    for xf, yk, ym in zip(kmc_f * 100, kmc_t, mf_t):
+    for xf, yk, ym in zip(kmc_f * 100, kmc_t, mf_t, strict=True):
         if ym > 0 and yk > 0 and ym / yk > 5:
             ax.annotate("", xy=(xf, yk), xytext=(xf, ym),
                         arrowprops=dict(arrowstyle="<->", color="#999", lw=0.9))

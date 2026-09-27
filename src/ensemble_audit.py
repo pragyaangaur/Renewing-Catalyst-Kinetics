@@ -105,7 +105,7 @@ def exact(size, edges, rates, diffusion=0.0, renewal=0.0):
     _, labels = connected_components(generator, directed=True, connection="strong")
     closed = set(labels)
     source, target = generator.nonzero()
-    for start, finish in zip(source, target):
+    for start, finish in zip(source, target, strict=True):
         if labels[start] != labels[finish]:
             closed.discard(labels[start])
     if len(closed) != 1:

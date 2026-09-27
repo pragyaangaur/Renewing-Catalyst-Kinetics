@@ -178,7 +178,7 @@ def solve(size, edges, r):
     _, labels = connected_components(gen, directed=True, connection="strong")
     closed = set(labels)
     src, dst = gen.nonzero()
-    for a, b in zip(src, dst):
+    for a, b in zip(src, dst, strict=True):
         if labels[a] != labels[b]:
             closed.discard(labels[a])
     if len(closed) != 1:
@@ -254,7 +254,7 @@ def connected_graphs_bruteforce(n):
             continue
         canon = min(
             tuple(sorted(tuple(sorted((perm[a], perm[b]))) for a, b in edges))
-            for perm in map(lambda p: dict(zip(verts, p)), itertools.permutations(verts))
+            for perm in map(lambda p: dict(zip(verts, p, strict=True)), itertools.permutations(verts))
         )
         seen.setdefault(canon, edges)
     return list(seen.values())

@@ -72,7 +72,7 @@ def fig_result_a():
     graphs = [sum(r["n"] == n for r in reach) for n in sizes]
     states = [max(r["states_with_diffusion"] for r in reach if r["n"] == n) for n in sizes]
     b.bar(sizes, graphs, color=[RED if n < 3 else BLUE for n in sizes], width=0.7)
-    for n, g in zip(sizes, graphs):
+    for n, g in zip(sizes, graphs, strict=True):
         b.text(n, g * 1.15, str(g), ha="center", fontsize=7)
     b.set_yscale("log")
     b.set_ylim(0.7, 4000)

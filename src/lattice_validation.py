@@ -74,7 +74,7 @@ def frozen_lattice(p, seed):
             a = parent[a]
         return a
 
-    for a, b in list(zip(labels[0], labels[-1])) + list(zip(labels[:, 0], labels[:, -1])):
+    for a, b in list(zip(labels[0], labels[-1], strict=True)) + list(zip(labels[:, 0], labels[:, -1], strict=True)):
         if a and b:
             parent[find(a)] = find(b)
     roots = np.array([find(i) for i in range(n + 1)])
@@ -160,7 +160,7 @@ def run(job):
     counts, start, k = [], sim.n_so3_net, 0
     t_start = sim.t
     while k < BATCHES:
-        before_t, before_n = sim.t, sim.n_so3_net
+        before_n = sim.n_so3_net
         sim.step()
         # an event that crosses a batch edge is assigned to the batch it lands in
         while k < BATCHES and sim.t >= edges[k]:

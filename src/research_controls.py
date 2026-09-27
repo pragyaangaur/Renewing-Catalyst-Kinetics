@@ -7,7 +7,7 @@ from pathlib import Path
 
 import numpy as np
 
-from ensemble_audit import MOTIFS, exact, simulate, transitions
+from ensemble_audit import MOTIFS, exact, simulate
 from kmc_core import (
     KMC, CUO, N_SITE_PROC, N_BOND_PROC, P_ADS_SO2, P_DES_SO2,
     P_DES_SO3, B_ADS_O2, B_DES_O2, B_LH, P_SULFATE, P_OXIDISE_CU,
@@ -131,7 +131,7 @@ def main():
     for sample in range(100):
         factors = 10 ** rng.uniform(-2, 2, len(uncertain_keys))
         varied = dict(rates)
-        for key, factor in zip(uncertain_keys, factors):
+        for key, factor in zip(uncertain_keys, factors, strict=True):
             varied[key] *= factor
         diffusion = float(10 ** rng.uniform(0, 6))
         path = exact(*MOTIFS["path4"], varied, diffusion)["tof"]
