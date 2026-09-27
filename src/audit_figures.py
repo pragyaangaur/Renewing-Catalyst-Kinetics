@@ -10,7 +10,6 @@ os.environ.setdefault("MPLCONFIGDIR", "/tmp/renewal-kinetics-matplotlib")
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results" / "audit"

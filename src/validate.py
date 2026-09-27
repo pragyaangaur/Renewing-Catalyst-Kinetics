@@ -7,7 +7,6 @@ catalytic regime, the poisoned regime, and the boundary between them.
 """
 
 import time
-import numpy as np
 
 from kmc_core import Lattice, KMC, CUO
 from params import build_rates

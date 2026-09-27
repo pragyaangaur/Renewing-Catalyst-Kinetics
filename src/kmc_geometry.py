@@ -23,7 +23,7 @@ Geometries
 
 import numpy as np
 
-from kmc_core import Lattice, KMC, CU, CUO, CUSO4, EMPTY
+from kmc_core import Lattice, KMC, CUO, CUSO4, EMPTY
 from params import build_rates
 from reactor import required_tof, ILLUSTRATIVE_CONVERSION
 

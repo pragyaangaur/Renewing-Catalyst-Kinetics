@@ -17,9 +17,9 @@ import os
 import json
 import numpy as np
 
-from params import build_rates, BASE
+from params import build_rates
 from meanfield import steady_state
-from reactor import march, required_tof, DEFAULT_AV, ILLUSTRATIVE_CONVERSION
+from reactor import march, required_tof, ILLUSTRATIVE_CONVERSION
 
 RESULTS = os.path.join(os.path.dirname(__file__), "..", "results")
 os.makedirs(RESULTS, exist_ok=True)

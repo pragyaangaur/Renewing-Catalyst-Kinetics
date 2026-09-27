@@ -50,7 +50,6 @@ cost of throwing away copper that was still in service.
 
 import argparse
 import json
-from pathlib import Path
 
 import numpy as np
 

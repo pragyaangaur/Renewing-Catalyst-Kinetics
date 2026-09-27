@@ -18,7 +18,6 @@ The comparison is run along a sweep of sulphate stability, and additionally the
 spatial structure of the surviving oxide is measured by cluster analysis.
 """
 
-import sys
 import numpy as np
 
 from kmc_core import Lattice, KMC, CUO, CU, CUSO4
