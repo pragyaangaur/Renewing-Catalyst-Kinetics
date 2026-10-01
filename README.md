@@ -116,7 +116,7 @@ python3 src/kmc_geometry.py
 
 ## Citing
 
-The archived release is on Zenodo at https://doi.org/10.5281/zenodo.22910821. The paper that describes the results in full is included in that archive and is also published as a preprint on ChemRxiv. `CITATION.cff` carries the same metadata in machine readable form.
+The archived release is on Zenodo at https://doi.org/10.5281/zenodo.22910821. The paper that describes the results in full is included in that archive and is also published as a preprint on ChemRxiv at https://doi.org/10.26434/chemrxiv.15009719/v1. `CITATION.cff` carries the same metadata in machine readable form.
 
 ## Contributing and contact
 
