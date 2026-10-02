@@ -2,6 +2,8 @@
 
 Exact master equation and kinetic Monte Carlo models of SO2 oxidation on a self renewing copper oxide surface.
 
+The paper that describes these results in full is published as a preprint on ChemRxiv at https://doi.org/10.26434/chemrxiv.15009719/v1. The code, data and figures behind it are archived on Zenodo at https://doi.org/10.5281/zenodo.22910821.
+
 The motivating question is what happens to a copper oxide catalyst that sulphates in service and recovers by exposing fresh copper underneath. Copper oxide is normally used as a sulphur sorbent rather than as a catalyst, because sulphation converts it to copper sulphate, which is inactive. A surface that renews itself changes the accounting, because sites are no longer a fixed inventory that can only be lost. This repository asks what such a surface can and cannot do, and it tries to separate the answers that depend on assumed rate constants from the answers that do not.
 
 ## Where this came from
@@ -116,7 +118,7 @@ python3 src/kmc_geometry.py
 
 ## Citing
 
-The archived release is on Zenodo at https://doi.org/10.5281/zenodo.22910821. The paper that describes the results in full is included in that archive and is also published as a preprint on ChemRxiv at https://doi.org/10.26434/chemrxiv.15009719/v1. `CITATION.cff` carries the same metadata in machine readable form.
+Please cite the ChemRxiv preprint linked at the top of this page for the results, and the Zenodo release for the code and data. The Zenodo archive also includes the paper, and `CITATION.cff` carries the same metadata in machine readable form.
 
 ## Contributing and contact
 
